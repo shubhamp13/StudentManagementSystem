@@ -39,11 +39,10 @@ public class LoginServlet extends HttpServlet
 		if(res)
 		{
 			Student student=dao.getStudent(emailId);
-			printWriter.println("<b>"+student.getName()+"</b><br>");
-			printWriter.println("<b>"+student.getEmailId()+"</b><br>");
-			printWriter.println("<b>"+student.getGender()+"</b><br>");
-			printWriter.println("<b>"+student.getPhoneNo()+"</b><br>");
-			printWriter.println("<b>"+student.getAddress()+"</b><br>");
+			req.setAttribute("student",student);
+			RequestDispatcher dispatcher=req.getRequestDispatcher("StudentInfo");
+			dispatcher.forward(req, resp);
+		
 		}
 		else
 		{
