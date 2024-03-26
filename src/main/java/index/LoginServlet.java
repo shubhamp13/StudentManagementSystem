@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.Login;
 import dao.StudentDao;
 import dto.Student;
 
@@ -28,17 +29,16 @@ public class LoginServlet extends HttpServlet
 		 PrintWriter printWriter=resp.getWriter();
 		 String emailId=req.getParameter("emailId");
 		 String password=req.getParameter("password");
-		 StudentDao dao=new StudentDao();
 		 String check=req.getParameter("register");
 		 if(check!=null)
 		 {
 			 RequestDispatcher dispatcher=req.getRequestDispatcher("register.html");
 			 dispatcher.forward(req, resp);
 		 }
-		boolean res= dao.findStudent(emailId, password);
-		if(res)
+	 
+		if(new Login().loginStudent(emailId, password))
 		{
-			Student student=dao.getStudent(emailId);
+			Student student=new StudentDao().getStudent(emailId);
 			req.setAttribute("student",student);
 			RequestDispatcher dispatcher=req.getRequestDispatcher("StudentInfo");
 			dispatcher.forward(req, resp);
@@ -47,7 +47,8 @@ public class LoginServlet extends HttpServlet
 		else
 		{
 			printWriter.print("<h1>Oops Something Wrong!!!!!!!!!!!!!!!!!!!</h1>");
-			RequestDispatcher dispatcher=req.getRequestDispatcher("error.html");
+			RequestDispatcher dispatcher=req.getRequestDispatcher("login.html");
+			resp.sendRedirect("https://www.google.com/");
 			dispatcher.include(req, resp);
 		}
 		 

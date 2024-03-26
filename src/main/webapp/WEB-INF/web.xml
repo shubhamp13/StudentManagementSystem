@@ -2,6 +2,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <servlet-name>student</servlet-name>
@@ -14,6 +15,18 @@
   <servlet>
     <servlet-name>StudentInfo</servlet-name>
     <servlet-class>index.StudentInfo</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<display-name>DeleteServlet</display-name>
+  	<description></description>
+  	<servlet-class>index.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UpdateServlet</servlet-name>
+  	<display-name>UpdateServlet</display-name>
+  	<description></description>
+  	<servlet-class>index.UpdateServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -28,7 +41,14 @@
     <servlet-name>StudentInfo</servlet-name>
     <url-pattern>/StudentInfo</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UpdateServlet</servlet-name>
+  	<url-pattern>/UpdateServlet</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.html</welcome-file>
     <welcome-file>register.html</welcome-file>

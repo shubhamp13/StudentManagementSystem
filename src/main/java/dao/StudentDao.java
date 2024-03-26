@@ -18,23 +18,38 @@ public class StudentDao
 		entityManager.persist(student);
 		entityManager.getTransaction().commit();
 	}
-	public boolean findStudent(String emailId,String password)
-	{
-		boolean b=false;
-		EntityManager entityManager=getEntityManager();
-		entityManager.getTransaction().begin();
-		Student dbStudent=entityManager.find(Student.class,emailId);
-		if(dbStudent!=null)
-		{
-			b=dbStudent.getPassword().equals(password);
-		}
-		entityManager.getTransaction().commit();
-		return b;
-	}
 	public Student getStudent(String emailId)
 	{
 		EntityManager entityManager=getEntityManager();
 		Student dbStudent=entityManager.find(Student.class, emailId);
 		return dbStudent;
+	}
+	public boolean  deleteStudent(String emailId)
+	{
+		EntityManager entityManager=getEntityManager();
+		Student dbStudent=entityManager.find(Student.class,emailId);
+		if(dbStudent!=null)
+		{
+			entityManager.getTransaction().begin();
+			entityManager.remove(dbStudent);
+			entityManager.getTransaction().commit();
+			return true;
+		}
+		return false;
+		
+	}
+	public boolean updateStudent(String emailId,Student dbStudent)
+	{
+		EntityManager entityManager=getEntityManager();
+		Student student=entityManager.find(Student.class, emailId);
+		if(student!=null)
+		{
+			entityManager.getTransaction().begin();
+			dbStudent.setEmailId(emailId);
+			entityManager.merge(dbStudent);
+			entityManager.getTransaction().commit();
+			return true;
+		}
+		return false;
 	}
 }
